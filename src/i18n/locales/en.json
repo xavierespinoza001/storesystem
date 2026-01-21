@@ -128,7 +128,19 @@
     "receipt": "Receipt",
     "invoice": "Invoice",
     "saleSuccess": "Sale completed successfully!",
-    "insufficientStock": "Insufficient stock"
+    "insufficientStock": "Insufficient stock",
+    "paymentMethods": "Payment Methods",
+    "addPayment": "Add Payment Method",
+    "paymentType": "Type",
+    "amount": "Amount",
+    "cash": "Cash",
+    "qr": "QR Code",
+    "other": "Other",
+    "creditSale": "Credit Sale / Advance",
+    "pendingAmount": "Pending Amount",
+    "paidAmount": "Paid Amount",
+    "observations": "Observations",
+    "observationsPlaceholder": "Add notes about this sale (e.g. advance details)..."
   },
   "sales": {
     "title": "Sales History",

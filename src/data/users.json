@@ -1,0 +1,5 @@
+[
+  { "id": "1", "name": "Super Admin", "email": "admin@store.com", "role": "admin", "active": true, "avatar": "https://ui-avatars.com/api/?name=Super+Admin&background=0D8ABC&color=fff" },
+  { "id": "2", "name": "Sales Rep", "email": "sales@store.com", "role": "sales", "active": true, "avatar": "https://ui-avatars.com/api/?name=Sales+Rep&background=random" },
+  { "id": "3", "name": "Guest Viewer", "email": "viewer@store.com", "role": "viewer", "active": true, "avatar": "https://ui-avatars.com/api/?name=Guest+Viewer&background=random" }
+]

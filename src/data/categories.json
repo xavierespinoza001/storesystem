@@ -1,0 +1,6 @@
+[
+  { "id": "1", "name": "Electronics", "description": "Gadgets and devices", "status": "active" },
+  { "id": "2", "name": "Furniture", "description": "Office and home furniture", "status": "active" },
+  { "id": "3", "name": "Accessories", "description": "Cables, chargers, etc.", "status": "active" },
+  { "id": "4", "name": "Clothing", "description": "Uniforms and apparel", "status": "active" }
+]

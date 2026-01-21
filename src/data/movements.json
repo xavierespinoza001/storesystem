@@ -1,0 +1,4 @@
+[
+  { "id": "1", "productId": "1", "productName": "Wireless Headphones", "type": "in", "quantity": 10, "date": "2024-01-01T10:00:00.000Z", "userId": "1", "userName": "Super Admin", "reason": "Initial Stock" },
+  { "id": "2", "productId": "2", "productName": "Mechanical Keyboard", "type": "out", "quantity": 2, "date": "2024-01-02T14:30:00.000Z", "userId": "2", "userName": "Sales Rep", "reason": "Sale #1234" }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": "1", "sku": "PROD-001", "name": "Wireless Headphones", "description": "Noise cancelling headphones", "price": 120.00, "categoryId": "1", "stock": 15, "minStock": 5, "status": "active" },
+  { "id": "2", "sku": "PROD-002", "name": "Mechanical Keyboard", "description": "RGB Gaming Keyboard", "price": 85.50, "categoryId": "1", "stock": 3, "minStock": 10, "status": "active" },
+  { "id": "3", "sku": "PROD-003", "name": "Office Chair", "description": "Ergonomic chair", "price": 250.00, "categoryId": "2", "stock": 8, "minStock": 2, "status": "active" },
+  { "id": "4", "sku": "PROD-004", "name": "USB-C Cable", "description": "2m fast charging cable", "price": 12.00, "categoryId": "3", "stock": 100, "minStock": 20, "status": "active" },
+  { "id": "5", "sku": "PROD-005", "name": "Monitor 24\"", "description": "IPS 1080p Display", "price": 180.00, "categoryId": "1", "stock": 12, "minStock": 5, "status": "active" }
+]

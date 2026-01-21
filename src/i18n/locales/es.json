@@ -128,7 +128,19 @@
     "receipt": "Recibo (Boleta)",
     "invoice": "Factura",
     "saleSuccess": "¡Venta completada con éxito!",
-    "insufficientStock": "Stock insuficiente"
+    "insufficientStock": "Stock insuficiente",
+    "paymentMethods": "Métodos de Pago",
+    "addPayment": "Agregar Método",
+    "paymentType": "Tipo",
+    "amount": "Monto",
+    "cash": "Efectivo",
+    "qr": "QR / Digital",
+    "other": "Otro",
+    "creditSale": "Venta al Crédito / Anticipo",
+    "pendingAmount": "Monto Pendiente",
+    "paidAmount": "Monto Pagado",
+    "observations": "Observaciones",
+    "observationsPlaceholder": "Agregar notas sobre la venta (ej. detalle anticipo)..."
   },
   "sales": {
     "title": "Historial de Ventas",

@@ -50,6 +50,14 @@ export interface SaleItem {
   subtotal: number;
 }
 
+export type PaymentType = "cash" | "qr" | "other";
+
+export interface PaymentMethod {
+  id: string;
+  type: PaymentType;
+  amount: number;
+}
+
 export interface Sale {
   id: string;
   date: string;
@@ -58,6 +66,12 @@ export interface Sale {
   userId: string;
   userName: string;
   documentType: 'receipt' | 'invoice';
+  
+  // New fields
+  paymentMethods: PaymentMethod[];
+  isCredit: boolean;
+  pendingAmount: number;
+  observations?: string;
 }
 
 export interface AuthState {

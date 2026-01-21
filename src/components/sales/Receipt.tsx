@@ -54,11 +54,31 @@ export const Receipt: React.FC<ReceiptProps> = ({ sale }) => {
         </tbody>
       </table>
 
-      <div className="border-t border-slate-900 pt-2">
+      <div className="border-t border-slate-900 pt-2 space-y-1">
         <div className="flex justify-between text-lg font-bold">
             <span>{t('pos.total')}</span>
             <span>{formatCurrency(sale.total)}</span>
         </div>
+        {/* Payment Methods Breakdown */}
+        {sale.paymentMethods && sale.paymentMethods.length > 0 && (
+            <div className="pt-2 text-xs border-t border-slate-200 mt-2">
+                <p className="font-bold mb-1">{t('pos.paymentMethods')}:</p>
+                {sale.paymentMethods.map((pm, idx) => (
+                    <div key={idx} className="flex justify-between text-slate-600">
+                        <span className="capitalize">{t(`pos.${pm.type}`)}</span>
+                        <span>{formatCurrency(pm.amount)}</span>
+                    </div>
+                ))}
+            </div>
+        )}
+        
+        {/* Observations */}
+        {sale.observations && (
+            <div className="pt-2 mt-2 border-t border-slate-200">
+                <p className="text-xs font-bold">{t('pos.observations')}:</p>
+                <p className="text-xs text-slate-600 italic">{sale.observations}</p>
+            </div>
+        )}
       </div>
 
       <div className="mt-8 text-center text-xs text-slate-500">

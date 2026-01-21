@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../services/api";
-import { Product, SaleItem, Sale } from "../types";
+import { Product, SaleItem, Sale, PaymentMethod, PaymentType } from "../types";
 import { useAuth } from "../context/AuthContext";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Modal } from "../components/ui/Modal";
-import { Search, ShoppingCart, Trash2, Plus, Minus, Printer } from "lucide-react";
+import { Search, ShoppingCart, Trash2, Plus, Minus, Printer, CreditCard, X } from "lucide-react";
 import { formatCurrency } from "../lib/utils";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "../components/sales/Receipt";
@@ -24,6 +24,11 @@ export const POS = () => {
   const [lastSale, setLastSale] = useState<Sale | null>(null);
   const [isReceiptOpen, setIsReceiptOpen] = useState(false);
 
+  // Payment State
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [isCredit, setIsCredit] = useState(false);
+  const [observations, setObservations] = useState("");
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -36,7 +41,7 @@ export const POS = () => {
       }
     };
     fetchProducts();
-  }, [lastSale]); // Refresh products after a sale
+  }, [lastSale]);
 
   const addToCart = (product: Product) => {
     if (product.stock <= 0) return;
@@ -44,7 +49,7 @@ export const POS = () => {
     setCart(prev => {
       const existing = prev.find(item => item.productId === product.id);
       if (existing) {
-        if (existing.quantity >= product.stock) return prev; // Cap at stock
+        if (existing.quantity >= product.stock) return prev;
         return prev.map(item => 
           item.productId === product.id 
             ? { ...item, quantity: item.quantity + 1, subtotal: (item.quantity + 1) * item.price }
@@ -80,10 +85,54 @@ export const POS = () => {
     setCart(prev => prev.filter(item => item.productId !== productId));
   };
 
+  const cartTotal = cart.reduce((acc, item) => acc + item.subtotal, 0);
+
+  // --- Payment Logic ---
+
+  const openCheckout = () => {
+    // Reset payment state
+    setPaymentMethods([{ id: "1", type: "cash", amount: cartTotal }]);
+    setIsCredit(false);
+    setObservations("");
+    setIsCheckoutOpen(true);
+  };
+
+  const addPaymentMethod = () => {
+    setPaymentMethods(prev => [
+      ...prev,
+      { id: Math.random().toString(36).substr(2, 9), type: "cash", amount: 0 }
+    ]);
+  };
+
+  const removePaymentMethod = (id: string) => {
+    if (paymentMethods.length === 1) return; // Prevent removing last one
+    setPaymentMethods(prev => prev.filter(p => p.id !== id));
+  };
+
+  const updatePaymentMethod = (id: string, field: keyof PaymentMethod, value: any) => {
+    setPaymentMethods(prev => prev.map(p => 
+      p.id === id ? { ...p, [field]: value } : p
+    ));
+  };
+
+  const totalPaid = paymentMethods.reduce((acc, p) => acc + (Number(p.amount) || 0), 0);
+  const pendingAmount = Math.max(0, cartTotal - totalPaid);
+  const isValid = isCredit ? totalPaid < cartTotal : Math.abs(totalPaid - cartTotal) < 0.01;
+
   const handleCheckout = async () => {
     if (!user) return;
+    if (!isCredit && Math.abs(totalPaid - cartTotal) > 0.01) {
+        alert("Paid amount must match total for non-credit sales.");
+        return;
+    }
+
     try {
-        const sale = await api.sales.create(cart, documentType, user);
+        const sale = await api.sales.create(cart, documentType, user, {
+            methods: paymentMethods,
+            isCredit,
+            pendingAmount: isCredit ? pendingAmount : 0,
+            observations
+        });
         setLastSale(sale);
         setIsCheckoutOpen(false);
         setCart([]);
@@ -102,8 +151,6 @@ export const POS = () => {
     p.name.toLowerCase().includes(search.toLowerCase()) || 
     p.sku.toLowerCase().includes(search.toLowerCase())
   );
-
-  const cartTotal = cart.reduce((acc, item) => acc + item.subtotal, 0);
 
   return (
     <div className="h-[calc(100vh-8rem)] flex flex-col md:flex-row gap-6">
@@ -193,7 +240,7 @@ export const POS = () => {
                 className="w-full" 
                 size="lg" 
                 disabled={cart.length === 0}
-                onClick={() => setIsCheckoutOpen(true)}
+                onClick={openCheckout}
             >
                 {t('pos.checkout')}
             </Button>
@@ -206,7 +253,8 @@ export const POS = () => {
         onClose={() => setIsCheckoutOpen(false)}
         title={t('pos.confirmSale')}
       >
-        <div className="space-y-6">
+        <div className="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+            {/* Document Type */}
             <div>
                 <label className="mb-2 block text-sm font-medium text-slate-700">{t('pos.documentType')}</label>
                 <div className="grid grid-cols-2 gap-4">
@@ -228,21 +276,108 @@ export const POS = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Payment Methods */}
+            <div>
+                <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium text-slate-700">{t('pos.paymentMethods')}</label>
+                    <button onClick={addPaymentMethod} className="text-xs text-blue-600 hover:underline flex items-center">
+                        <Plus className="h-3 w-3 mr-1" /> {t('pos.addPayment')}
+                    </button>
+                </div>
+                
+                <div className="space-y-2">
+                    {paymentMethods.map((method, index) => (
+                        <div key={method.id} className="flex gap-2 items-start">
+                            <div className="w-1/3">
+                                <select 
+                                    value={method.type}
+                                    onChange={(e) => updatePaymentMethod(method.id, 'type', e.target.value)}
+                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="cash">{t('pos.cash')}</option>
+                                    <option value="qr">{t('pos.qr')}</option>
+                                    <option value="other">{t('pos.other')}</option>
+                                </select>
+                            </div>
+                            <div className="flex-1">
+                                <input
+                                    type="number"
+                                    value={method.amount}
+                                    onChange={(e) => updatePaymentMethod(method.id, 'amount', parseFloat(e.target.value))}
+                                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder={t('pos.amount')}
+                                />
+                            </div>
+                            {paymentMethods.length > 1 && (
+                                <button 
+                                    onClick={() => removePaymentMethod(method.id)}
+                                    className="p-2 text-red-500 hover:bg-red-50 rounded-md"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Credit / Partial Payment Toggle */}
+            <div className="flex items-center space-x-2">
+                <input 
+                    type="checkbox" 
+                    id="isCredit" 
+                    checked={isCredit}
+                    onChange={(e) => setIsCredit(e.target.checked)}
+                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="isCredit" className="text-sm font-medium text-slate-700 select-none cursor-pointer">
+                    {t('pos.creditSale')}
+                </label>
+            </div>
+
+            {/* Observations */}
+            <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">{t('pos.observations')}</label>
+                <textarea 
+                    value={observations}
+                    onChange={(e) => setObservations(e.target.value)}
+                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
+                    placeholder={t('pos.observationsPlaceholder')}
+                />
+            </div>
             
+            {/* Totals Summary */}
             <div className="bg-slate-50 p-4 rounded-lg space-y-2">
                 <div className="flex justify-between text-sm">
                     <span className="text-slate-600">{t('pos.item')}s</span>
                     <span className="font-medium">{cart.length}</span>
                 </div>
-                <div className="flex justify-between text-lg font-bold border-t border-slate-200 pt-2">
+                <div className="flex justify-between text-sm">
+                    <span className="text-slate-600">{t('pos.paidAmount')}</span>
+                    <span className="font-medium text-green-600">{formatCurrency(totalPaid)}</span>
+                </div>
+                {isCredit && (
+                    <div className="flex justify-between text-sm">
+                        <span className="text-slate-600">{t('pos.pendingAmount')}</span>
+                        <span className="font-medium text-red-600">{formatCurrency(pendingAmount)}</span>
+                    </div>
+                )}
+                <div className="flex justify-between text-lg font-bold border-t border-slate-200 pt-2 mt-2">
                     <span>{t('pos.total')}</span>
                     <span>{formatCurrency(cartTotal)}</span>
                 </div>
             </div>
 
-            <div className="flex justify-end gap-3">
+            <div className="flex justify-end gap-3 pt-2">
                 <Button variant="ghost" onClick={() => setIsCheckoutOpen(false)}>{t('common.cancel')}</Button>
-                <Button onClick={handleCheckout} className="w-32">{t('pos.confirmSale')}</Button>
+                <Button 
+                    onClick={handleCheckout} 
+                    className="w-32"
+                    disabled={!isCredit && Math.abs(totalPaid - cartTotal) > 0.01}
+                >
+                    {t('pos.confirmSale')}
+                </Button>
             </div>
         </div>
       </Modal>
