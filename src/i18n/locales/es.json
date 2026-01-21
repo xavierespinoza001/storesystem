@@ -1,0 +1,142 @@
+{
+  "common": {
+    "welcome": "Bienvenido",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actions": "Acciones",
+    "search": "Buscar...",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este elemento?",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "status": "Estado",
+    "required": "Requerido",
+    "success": "Éxito",
+    "error": "Error",
+    "print": "Imprimir",
+    "close": "Cerrar"
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión para acceder al inventario",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "invalidCredentials": "Correo o contraseña inválidos"
+  },
+  "menu": {
+    "dashboard": "Panel de Control",
+    "products": "Productos",
+    "categories": "Categorías",
+    "inventory": "Inventario",
+    "users": "Usuarios",
+    "pos": "Punto de Venta",
+    "salesHistory": "Historial de Ventas"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "totalValue": "Valor Inventario",
+    "totalProducts": "Total Productos",
+    "lowStock": "Stock Bajo",
+    "recentMovements": "Movimientos Recientes",
+    "inventoryOverview": "Resumen de Inventario",
+    "recentActivity": "Actividad Reciente",
+    "noMovements": "No hay movimientos recientes.",
+    "last24h": "En las últimas 24h",
+    "salesToday": "Ventas Hoy",
+    "salesWeek": "Ventas Semana",
+    "salesTrend": "Tendencia de Ventas",
+    "vsYesterday": "vs Ayer",
+    "vsLastWeek": "vs Semana Pasada",
+    "revenue": "Ingresos",
+    "transactions": "Transacciones",
+    "topCategories": "Categorías Top",
+    "filters": {
+        "today": "Hoy",
+        "week": "Esta Semana",
+        "month": "Este Mes"
+    }
+  },
+  "products": {
+    "title": "Productos",
+    "addProduct": "Agregar Producto",
+    "editProduct": "Editar Producto",
+    "sku": "Código / SKU",
+    "name": "Nombre",
+    "description": "Descripción",
+    "price": "Precio",
+    "category": "Categoría",
+    "stock": "Stock",
+    "minStock": "Alerta Stock Mín.",
+    "selectCategory": "Selecciona una categoría..."
+  },
+  "categories": {
+    "title": "Categorías",
+    "addCategory": "Agregar Categoría",
+    "editCategory": "Editar Categoría",
+    "name": "Nombre",
+    "description": "Descripción"
+  },
+  "inventory": {
+    "title": "Gestión de Inventario",
+    "stockIn": "Entrada",
+    "stockOut": "Salida",
+    "history": "Historial de Movimientos",
+    "date": "Fecha",
+    "product": "Producto",
+    "type": "Tipo",
+    "quantity": "Cantidad",
+    "user": "Usuario",
+    "reason": "Razón",
+    "entry": "Entrada",
+    "exit": "Salida",
+    "registerEntry": "Registrar Entrada",
+    "registerExit": "Registrar Salida",
+    "selectProduct": "Selecciona un producto...",
+    "reasonPlaceholder": "ej. Orden de Compra #123"
+  },
+  "users": {
+    "title": "Gestión de Usuarios",
+    "addUser": "Agregar Usuario",
+    "editUser": "Editar Usuario",
+    "name": "Nombre",
+    "role": "Rol",
+    "roles": {
+      "admin": "Super Admin",
+      "sales": "Ventas",
+      "viewer": "Visualizador"
+    }
+  },
+  "pos": {
+    "title": "Punto de Venta",
+    "cart": "Venta Actual",
+    "addToCart": "Agregar",
+    "total": "Total",
+    "checkout": "Cobrar",
+    "emptyCart": "El carrito está vacío",
+    "item": "Producto",
+    "qty": "Cant.",
+    "price": "Precio",
+    "subtotal": "Subtotal",
+    "confirmSale": "Confirmar Venta",
+    "documentType": "Tipo de Comprobante",
+    "receipt": "Recibo (Boleta)",
+    "invoice": "Factura",
+    "saleSuccess": "¡Venta completada con éxito!",
+    "insufficientStock": "Stock insuficiente"
+  },
+  "sales": {
+    "title": "Historial de Ventas",
+    "id": "ID Venta",
+    "date": "Fecha",
+    "seller": "Vendedor",
+    "total": "Total",
+    "document": "Documento",
+    "viewReceipt": "Ver Comprobante"
+  }
+}

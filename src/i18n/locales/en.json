@@ -1,0 +1,142 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Actions",
+    "search": "Search...",
+    "confirmDelete": "Are you sure you want to delete this item?",
+    "active": "Active",
+    "inactive": "Inactive",
+    "status": "Status",
+    "required": "Required",
+    "success": "Success",
+    "error": "Error",
+    "print": "Print",
+    "close": "Close"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to access your inventory",
+    "email": "Email address",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signOut": "Sign Out",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "categories": "Categories",
+    "inventory": "Inventory",
+    "users": "Users",
+    "pos": "Point of Sale",
+    "salesHistory": "Sales History"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalValue": "Inventory Value",
+    "totalProducts": "Total Products",
+    "lowStock": "Low Stock",
+    "recentMovements": "Recent Movements",
+    "inventoryOverview": "Inventory Overview",
+    "recentActivity": "Recent Activity",
+    "noMovements": "No recent movements.",
+    "last24h": "In the last 24h",
+    "salesToday": "Sales Today",
+    "salesWeek": "Sales This Week",
+    "salesTrend": "Sales Trend",
+    "vsYesterday": "vs Yesterday",
+    "vsLastWeek": "vs Last Week",
+    "revenue": "Revenue",
+    "transactions": "Transactions",
+    "topCategories": "Top Categories",
+    "filters": {
+        "today": "Today",
+        "week": "This Week",
+        "month": "This Month"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "sku": "SKU",
+    "name": "Name",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category",
+    "stock": "Stock",
+    "minStock": "Min. Stock Alert",
+    "selectCategory": "Select a category..."
+  },
+  "categories": {
+    "title": "Categories",
+    "addCategory": "Add Category",
+    "editCategory": "Edit Category",
+    "name": "Name",
+    "description": "Description"
+  },
+  "inventory": {
+    "title": "Inventory Management",
+    "stockIn": "Stock In",
+    "stockOut": "Stock Out",
+    "history": "Movement History",
+    "date": "Date",
+    "product": "Product",
+    "type": "Type",
+    "quantity": "Quantity",
+    "user": "User",
+    "reason": "Reason",
+    "entry": "Entry",
+    "exit": "Exit",
+    "registerEntry": "Register Stock Entry",
+    "registerExit": "Register Stock Exit",
+    "selectProduct": "Select a product...",
+    "reasonPlaceholder": "e.g., Purchase Order #123"
+  },
+  "users": {
+    "title": "User Management",
+    "addUser": "Add User",
+    "editUser": "Edit User",
+    "name": "Name",
+    "role": "Role",
+    "roles": {
+      "admin": "Super Admin",
+      "sales": "Sales",
+      "viewer": "Viewer"
+    }
+  },
+  "pos": {
+    "title": "Point of Sale",
+    "cart": "Current Sale",
+    "addToCart": "Add",
+    "total": "Total",
+    "checkout": "Checkout",
+    "emptyCart": "Cart is empty",
+    "item": "Item",
+    "qty": "Qty",
+    "price": "Price",
+    "subtotal": "Subtotal",
+    "confirmSale": "Confirm Sale",
+    "documentType": "Document Type",
+    "receipt": "Receipt",
+    "invoice": "Invoice",
+    "saleSuccess": "Sale completed successfully!",
+    "insufficientStock": "Insufficient stock"
+  },
+  "sales": {
+    "title": "Sales History",
+    "id": "Sale ID",
+    "date": "Date",
+    "seller": "Seller",
+    "total": "Total",
+    "document": "Document",
+    "viewReceipt": "View Receipt"
+  }
+}
